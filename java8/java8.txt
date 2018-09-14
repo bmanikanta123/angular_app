@@ -1,0 +1,41 @@
+an instance of greeting interface
+a lambda expression the type of lambda expression is greeting
+
+whats happening here lambda expression is behaving as instance of greeting actually its a function
+
+we are implementing the interface by just implementing the function not class
+
+Type inference:
+
+compiler has the ability to identify the type of lambda expression, return type and argument type.
+
+
+class TypeInference{
+	public static void main(String args[]){
+		LenghthOfString lenghthOfString = (String s)->s.length();
+	}
+	
+	interface LenghthOfString{
+		int lengthOfString(String s);
+	}
+}
+
+
+Runnable using lambdas:
+
+explain thread example with inner class
+
+after replace with lambda expression
+
+Thread t = new Thread ((){
+	System.out.println("dsfdsf");
+}
+});
+
+
+Thread t = new Thread (()->{
+	System.out.println("dsfdsf");
+}
+);
+
+t.start();

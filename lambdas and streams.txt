@@ -1,0 +1,164 @@
+Lambdas:
+
+1.Why lambdas:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2.Introduction of Lambda expressions:
+
+They are anonymous methods (methods without names) used to implement a method defined by a functional interface.
+
+Lambda expressions can also be called as inline function.
+
+Functional interface:
+
+A functional interface is an interface that contains one and only one abstract method
+ex: Runnable, Callable, Comparator etc
+
+Syntax:
+
+The Arrow Operator
+
+Lambda expressions introduce the new arrow operator -> into Java. It divides the lambda expressions in two parts:
+
+(n) -> n*n
+
+The left side specifies the parameters required by the expression, which could also be empty if no parameters are required.
+
+The right side is the lambda body which specifies the actions of the lambda expression
+
+
+Evolution of lambda:
+
+Explain Greeting example
+
+
+valid lambda expressions:
+
+
+
+() -> System.out.println("Zero parameter lambda");
+
+(p) -> System.out.println("One parameter: " + p);
+
+(p1, p2) -> System.out.println("Multiple parameters: " + p1 + ", " + p2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3.lambda expression examples:
+
+1.Double the Number of a given Number
+
+n -> n*n
+
+
+List<Integer> numbers = Arrays.asList(1,2,3);
+
+
+2.Using lambda expression to print all elements of numbers
+
+numbers.forEach(n -> System.out.println(n));
+
+
+
+
+3.Using lambda expression to print even elements of numbers
+
+numbers.forEach(n -> { if (n%2 == 0) System.out.println(n); });
+
+
+
+4th slide will cover in 2nd slide greeting example
+
+
+5.
+
+
+
+
+
+
+Functional Interfaces:
+
+https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html

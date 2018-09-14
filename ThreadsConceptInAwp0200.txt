@@ -1,0 +1,45 @@
+Runnable r1 = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    AwdStagedClaimProcess ascp = new AwdStagedClaimProcess(batchSessionId, spoolPath, rootPath, debugMode, fetchLimit, jobMode,"THREAD1");
+                    ascp.claimLoadProcess();
+                }catch (Exception e){
+                    
+                }
+            }
+        };
+
+        Runnable r2 = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    AwdStagedClaimProcess ascp = new AwdStagedClaimProcess(batchSessionId, spoolPath, rootPath, debugMode, fetchLimit, jobMode,"THREAD2");
+                    ascp.claimLoadProcess();
+                }catch (Exception e){
+
+                }
+            }
+        };
+
+        Runnable r3 = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    AwdStagedClaimProcess ascp = new AwdStagedClaimProcess(batchSessionId, spoolPath, rootPath, debugMode, fetchLimit, jobMode,"THREAD3");
+                    ascp.claimLoadProcess();
+                }catch (Exception e){
+
+                }
+            }
+        };
+        
+        Thread t1 = new Thread(r1);
+        Thread t2 = new Thread(r2);
+        Thread t3 = new Thread(r3);
+        t1.start();
+        t2.start();
+        t3.start();
+        t1.join();
+        t2.join();
+        t3.join();

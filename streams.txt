@@ -1,0 +1,497 @@
+1.What is STREAM AND STREAM API and Introduction of STREAM:
+==========================================================
+
+A STREAM represents a sequence of objects that supports different kind of operations to perform computations upon those objects to get the desired result.
+
+The Stream interface is defined in java.util.stream package. 
+
+Starting from Java 8, the java collections will start having methods that return Stream. This is possible because of another cool feature of Java 8, which is default methods.
+
+
+Ex:
+
+Stream<String> streamEx = stream.of("A","B","C","D");
+
+Features:
+---------
+
+	A stream is not a data structure instead it takes input from the Collections, Arrays or I/O channels.
+
+	Streams don’t change the original data structure, they only provide the result as per the pipelined methods.
+
+	Each intermediate operation is lazily executed and returns a stream as a result, hence various intermediate operations can be pipelined. Terminal operations mark the end of the stream and return the result
+	
+	
+STREAM API is used to process collections of objects.
+	
+	
+How to create a STREAM:
+-----------------------
+There are many ways to create a stream instance of different sources(collections). 
+
+Once created, the instance will not modify its source, therefore allowing the creation of multiple instances from a single source
+
+
+
+=================================
+Explain "StreamCreationEx.java" ||
+=================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2.External Iteration:
+===================
+Till Java 7, the collections framework relied on the concept of external iteration, 
+
+where a Collection provides, by implementing Iterable, a means to enumerate its elements i.e. Iterator, and clients use this to step sequentially through the elements of a collection
+
+A brief look at the evolution of external iterators in java
+
+Lets look into some external iterators which we have been using as java language evolved over the years.
+
+Starting with Enumerations, iterations then moved on to Iterators(remember  iterator(), next() or hasNext() methods for iterators). Then came Java 5 and along with came the enhanced for-loop which made use of generics to make iteration a lot easier. Lets see an example of enhanced for-loop introduced in Java 5 which uses the Iterable interface (you might already be familiar with this one) –
+
+Enhanced for-loop example (uses external iterator)
+
+
+problems:
+---------
+1) Java’s for-each loop/iterator is inherently sequential, and must process the elements in the order specified by the collection.
+2) It limits the opportunity to manage the control flow, which might be able to provide better performance by exploiting reordering of the data, parallelism, short-circuiting, or laziness.
+
+
+
+
+
+
+
+
+
+
+
+
+
+3.Internal Iteration:
+=====================
+
+Internal Iterators(or Passive Iterators) – Internal Iterators manage the iterations in the background. 
+
+This leaves the programmer to just declaratively code what is meant to be done with the elements of the Collection, rather than managing the iteration and making sure that all the elements are processed one-by-one.
+
+
+Advantage of internal iterators over external iterators
+-------------------------------------------------------
+Improved code readability as its declarative in nature
+
+Concise code as multiple lines of code for external iterators is reduced to just one or two lines of code in case of internal iterators
+
+
+Point in favor of external iterators
+------------------------------------
+If you want more control over the iteration, and want to perform some check or operation for a particular index then external iterators are preferred over internal ones
+
+=============================================
+explain "ExternalInternalIterationEx.java" ||
+=============================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4. Intermediate and Terminal Operations:
+
+
+Stream Source:
+--------------
+
+Stream can be created from Collections,Lists,Sets,int,longs,arrays,doubles,lines of file.
+
+Stream Operations either intermediate or terminal:
+--------------------------------------------------
+1.Intermediate operations are filter, map, or sort return a stream so we can chain multiple intermediate operations.
+
+2.Terminal Operations are forEach, collect or reduce are return either void or non stream result.
+
+
+
+
+
+
+Intermediate Operations:
+------------------------
+
+
+Intermediate Operation can be classified into two types:
+
+Stateful Intermediate Operations: 
+---------------------------------
+
+Stateful intermediate operations are those which maintain information from a previous invocation internally to be used again in a future invocation of the method. 
+
+ 
+Intermediate operations such as Stream.distinct(), which needs to remember(or store) the previous elements it encountered, have to store state information from previous passes. 
+This state storage can become huge for instances of infinite streams and hence can potentially affect performance of the whole system. 
+ 
+ 
+Another example of stateful intermediate operation is Streams.sorted() which requires to store elements in a temporary storage as it sorts them over multiple passes. 
+
+Stateless Intermediate Operations: 
+----------------------------------
+Stateless intermediate operations are the opposite of stateful and do not store any state across passes. 
+
+This not only improves the performance of these operations, which include among others filter(), map(), findAny(), 
+
+it also helps in executing the Stream operation invocations in parallel as there is no information to be shared, or any order to be maintained, between these invocations or passes
+
+
+Filter method: 
+-------------
+
+The filter method filters out elements from a given stream. It uses a Predicate function
+
+instance which it applies to the whole stream and returns a filtered stream containing those elements which match the Predicate. It is an intermediate stream operation.
+
+
+Distinct Method: The distinct method when applied to a stream, returns a stream instance which has all elements
+----------------
+ unique/distinct. 
+
+I.e. every unique element is present only once in the resultant stream. 
+
+The uniqueness of elements in the resultant stream is determined by the equals & hashcode implementation in these elements. It is an intermediate stream operation.
+
+
+
+Limit(n) method: The limit method puts an upper-limit cap purely based on the number of elements in the stream. 
+----------------
+A limit of n applied to a stream returns a stream which contains exactly n elements if the original stream had more than or equal to n elements. 
+
+In case the original stream had less than n elements, and limit of n has been applied on the stream, then there is no affect on the stream elements, 
+
+i.e. the returned stream is same as the original stream. This method is a short-circuiting intermediate stream operation.
+
+
+
+Skip(n) method: The skip method is complimentary to the limit method. I.e. the skip method returns a truncated version 
+---------------
+of the original stream such that the first n elements 
+
+in the list are skipped and the remaining elements are returned in the resulting stream. This method is an intermediate stream operation
+
+
+======================================
+explain IntermediateOperationsEx.java||
+======================================
+
+
+
+
+
+
+
+
+
+
+What is mapping with Streams
+----------------------------
+
+
+
+MAP:
+----
+Mapping in the context of Java 8 Streams refers to converting or transforming a Stream carrying one type of data to another type.
+
+Lets take an example. Say we have a stream containing elements of type String. Suppose what we need is a stream of data which contains 
+Integer values with each Integer value of the new stream being the length of corresponding String in the old stream. 
+I.e we need to convert Stream<String> to its corresponding Stream<Integer>.
+
+Such conversion from one type to another is possible with the map() method of streams. 
+
+====================
+explain MapEx.java||
+====================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FlatMap:
+--------
+
+On top of the map() method, streams provide a flatmap() method which helps in flattening and converting multi-level streams into a single stream
+
+In Java 8, Stream can hold different data types, for examples:
+
+Stream<String[]>	
+Stream<Set<String>>	
+Stream<List<String>>	
+Stream<List<Object>>
+
+But, the Stream operations (filter, sum, distinct…) and collectors do not support it, so, we need flatMap() to do the following conversion :
+
+Stream<String[]>		-> flatMap ->	Stream<String>
+Stream<Set<String>>	    -> flatMap ->	Stream<String>
+Stream<List<String>>	-> flatMap ->	Stream<String>
+Stream<List<Object>>	-> flatMap ->	Stream<Object>
+
+========================
+explain FlatMapEx.java ||
+========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Optional:
+---------
+
+Java 8 has introduced a new class Optional in java.util package. It is used to represent a value is present or absent. The main advantage of this new construct is that No more too many null checks and NullPointerException. It avoids any runtime NullPointerExceptions and supports us in developing clean and neat Java APIs or Applications. Like Collections and arrays, it is also a Container to hold at most one value. Let us explore this new construct with some useful examples.
+
+Advantages of Java 8 Optional:
+
+Null checks are not required.
+No more NullPointerException at run-time.
+We can develop clean and neat APIs.
+No more Boiler plate code
+
+======================================================================
+Explain MobileServiceDemo with Optional as well as without Optional ||
+======================================================================
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	
+Show Parallel Processing Example
+--------------------------------
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+=====================================================================================================================	
+
+
+List<String> myList =
+    Arrays.asList("a1", "a2", "b1", "c2", "c1");
+
+myList
+    .stream()
+    .filter(s -> s.startsWith("c"))
+    .map(String::toUpperCase)
+    .sorted()
+    .forEach(System.out::println);
+	
+	
+// C1
+// C2	
+
+
+Stream operations are either intermediate or terminal. Intermediate operations return a stream so we can chain multiple intermediate operations without using semicolons. Terminal operations are either void or return a non-stream result. In the above example filter, map and sorted are intermediate operations whereas forEach is a terminal operation. For a full list of all available stream operations see the Stream Javadoc. Such a chain of stream operations as seen in the example above is also known as operation pipeline.
+
+
+Different kind of streams
+
+Streams can be created from various data sources, especially collections. Lists and Sets support new methods stream() and parallelStream() to either create a sequential or a parallel stream. 
+
+
+Arrays.asList("a1", "a2", "a3")
+    .stream()
+    .findFirst()
+    .ifPresent(System.out::println);  // a1
+Calling the method stream() on a list of objects returns a regular object stream. But we don't have to create collections in order to work with streams
+
+Stream.of("a1", "a2", "a3")
+    .findFirst()
+    .ifPresent(System.out::println);  // a1
+	
+	
+
+Just use Stream.of() to create a stream from a bunch of object references.
+
+Besides regular object streams Java 8 ships with special kinds of streams for working with the primitive data types int, long and double. As you might have guessed it's IntStream, LongStream and DoubleStream.
+
+IntStreams can replace the regular for-loop utilizing IntStream.range():
+
+IntStream.range(1, 4)
+    .forEach(System.out::println);
+
+// 1
+// 2
+// 3	
+
+
+All those primitive streams work just like regular object streams with the following differences: Primitive streams use specialized lambda expressions, e.g. IntFunction instead of Function or IntPredicate instead of Predicate. And primitive streams support the additional terminal aggregate operations sum() and average():
+
+Arrays.stream(new int[] {1, 2, 3})
+    .map(n -> 2 * n + 1)
+    .average()
+    .ifPresent(System.out::println);  // 5.0
+	
+	
+Sometimes it's useful to transform a regular object stream to a primitive stream or vice versa. For that purpose object streams support the special mapping operations mapToInt(), mapToLong() and mapToDouble:
+
+Stream.of("a1", "a2", "a3")
+    .map(s -> s.substring(1))
+    .mapToInt(Integer::parseInt)
+    .max()
+    .ifPresent(System.out::println);  // 3
+Primitive streams can be transformed to object streams via mapToObj():
+
+IntStream.range(1, 4)
+    .mapToObj(i -> "a" + i)
+    .forEach(System.out::println);
+
+// a1
+// a2
+// a3	
+
+
+Here's a combined example: the stream of doubles is first mapped to an int stream and than mapped to an object stream of strings:
+
+Stream.of(1.0, 2.0, 3.0)
+    .mapToInt(Double::intValue)
+    .mapToObj(i -> "a" + i)
+    .forEach(System.out::println);
+
+// a1
+// a2
+// a3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+links:
+https://www.callicoder.com/java-8-optional-tutorial
+
+http://java.amitph.com/2014/01/understanding-java-8-streams-api.html
+
+https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
+
+https://www.geeksforgeeks.org/stream-in-java/
+
+https://www.baeldung.com/java-8-streams
